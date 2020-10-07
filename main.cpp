@@ -34,16 +34,17 @@ int main() {
     for (int i = 0; i < 5; i++){
         cout << "Введите координаты X и Y от -5 до 5 для "<< i + 1 <<" выстрела: ";
         cin >> x >> y;
-        x += gen() % 6;    // симуляция криворукости 
+        x += gen() % 6;    // симуляция криворукости
         x -= gen() % 6;
         y += gen() % 6;
         y -= gen() % 6;
 
-        if (abs(x) <= 5 && abs(y) <= 5) {        // обрабока попадания
-            points += 5 - max(abs(x), abs(y));
-            map[5 + x][5 + y] = "0";
+               // обрабока попадани
+        if (round(sqrt(x*x + y*y)) < 5) {
+            points += 5 - round(sqrt(x*x + y*y) - 0.2);
         } else cout << "MISS" << endl;
 
+        if (abs(x) <= 5 && abs(y) <= 5) map[5 + y][5 + x] = "0";
         for(int a = 0; a <= 10; a++){      // отрисовка
             for(int b = 0; b <= 10; b++){
                 cout << map[a][b] << " ";
