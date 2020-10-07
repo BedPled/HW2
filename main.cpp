@@ -16,13 +16,13 @@ int main() {
                         {"⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛"}
     }; // ⬤ - символ выстрела
 
-    int shoot[5][2]; // координаты X Y (А зачем я их храню??????)
+    int x, y;
     int points = 0; // сумма очков
 
     mt19937 gen;                   // магия генерации псевдо рандомных чисел
     gen.seed(time(0));
 
-    for(int a = 0; a <= 10; a++){      // отрисовка поля игры
+    for(int a = 0; a <= 10; a++){      // отрисовка
         for(int b = 0; b <= 10; b++){
             cout << map[a][b] << " ";
         }
@@ -32,15 +32,15 @@ int main() {
 
     for (int i = 0; i < 5; i++){
         cout << "Введите координаты X и Y от -5 до 5 для "<< i + 1 <<" выстрела: ";
-        cin >> shoot[i][0] >> shoot[i][1];
-        shoot[i][0] += gen() % 6;
-        shoot[i][0] -= gen() % 6;
-        shoot[i][1] += gen() % 6;
-        shoot[i][1] -= gen() % 6;
+        cin >> x >> y;
+        x += gen() % 6;    // симуляция криворукости 
+        x -= gen() % 6;
+        y += gen() % 6;
+        y -= gen() % 6;
 
-        if (abs(shoot[i][0]) <= 5 && abs(shoot[i][1]) <= 5) {        // обрабока попадания
-            points += 5 - max(abs(shoot[i][0]), abs(shoot[i][1]));
-            map[5 + shoot[i][0]][5 + shoot[i][1]] = "⬤";
+        if (abs(x) <= 5 && abs(y) <= 5) {        // обрабока попадания
+            points += 5 - max(abs(x), abs(y));
+            map[5 + x][5 + y] = "⬤";
         } else cout << "MISS" << endl;
 
         for(int a = 0; a <= 10; a++){      // отрисовка
@@ -50,7 +50,7 @@ int main() {
             cout << endl;
         }
 
-        cout << "Попадание в координату: " << shoot[i][0] << " " << shoot[i][1] << endl;
+        cout << "Попадание в координату: " << x << " " << y << endl;
         cout << "Ваши очки: " << points << endl << endl;
     }
     cout << "Ваши очки: " << points << endl;
