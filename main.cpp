@@ -16,13 +16,13 @@ int main() {
                         {"⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛"}
     }; // ⬤ - символ выстрела
 
-    int shoot[5][2];
-    int points = 0;
+    int shoot[5][2]; // координаты X Y (А зачем я их храню??????)
+    int points = 0; // сумма очков
 
-    mt19937 gen;
+    mt19937 gen;                   // магия генерации псевдо рандомных чисел
     gen.seed(time(0));
 
-    for(int a = 0; a <= 10; a++){
+    for(int a = 0; a <= 10; a++){      // отрисовка поля игры
         for(int b = 0; b <= 10; b++){
             cout << map[a][b] << " ";
         }
@@ -35,16 +35,15 @@ int main() {
         cin >> shoot[i][0] >> shoot[i][1];
         shoot[i][0] += gen() % 6;
         shoot[i][0] -= gen() % 6;
-
         shoot[i][1] += gen() % 6;
         shoot[i][1] -= gen() % 6;
 
-        if (abs(shoot[i][0]) <= 5 && abs(shoot[i][1]) <= 5) {
+        if (abs(shoot[i][0]) <= 5 && abs(shoot[i][1]) <= 5) {        // обрабока попадания
             points += 5 - max(abs(shoot[i][0]), abs(shoot[i][1]));
             map[5 + shoot[i][0]][5 + shoot[i][1]] = "⬤";
         } else cout << "MISS" << endl;
 
-        for(int a = 0; a <= 10; a++){
+        for(int a = 0; a <= 10; a++){      // отрисовка
             for(int b = 0; b <= 10; b++){
                 cout << map[a][b] << " ";
             }
